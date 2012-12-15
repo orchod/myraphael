@@ -85,10 +85,10 @@
             if (this.dragging === true) {
                 return;
             }
- 
+            var canvas = $(this.paper.canvas);
             // X,Y Coordinates relative to shape's orgin
-            var relativeX = mouseX - $('#paper').offset().left - this.attr('x');
-            var relativeY = mouseY - $('#paper').offset().top - this.attr('y');
+            var relativeX = mouseX - canvas.offset().left - this.attr('x');
+            var relativeY = mouseY - canvas.offset().top - this.attr('y');
  
             var shapeWidth = this.attr('width');
             var shapeHeight = this.attr('height');

@@ -105,7 +105,7 @@ Raphael.fn.resizeable = function (subject) {
 };
 
 window.onload = function () {
-    var r = Raphael("holder", 1024, 1024),
+    var r = Raphael("holder", 640, 480),
         connections = [],
         shape1 = r.rect(290, 80, 60, 40, 10),
         shape2 = r.rect(290, 180, 60, 40, 2),
