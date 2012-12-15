@@ -1,0 +1,50 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Raphaël · Graffle</title>
+       
+        <style type="text/css" media="screen">
+            body {
+                background: #333;
+                color: #fff;
+                font: 300 100.1% "Helvetica Neue", Helvetica, "Arial Unicode MS", Arial, sans-serif;
+            }
+            #holder {
+                height: 480px;
+                left: 50%;
+                margin: -240px 0 0 -320px;
+                position: absolute;
+                top: 50%;
+                width: 640px;
+            }
+            #copy {
+                bottom: 0;
+                font: 300 .7em "Helvetica Neue", Helvetica, "Arial Unicode MS", Arial, sans-serif;
+                position: absolute;
+                right: 1em;
+                text-align: right;
+            }
+            #copy a {
+                color: #fff;
+            }
+            #holder {
+                -moz-border-radius: 10px;
+                -webkit-border-radius: 10px;
+                border: solid 1px #333;
+            }
+            p {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <p>Drag shapes around.</p>
+        <div id="holder"></div>
+        <p id="copy">Demo of <a href="http://raphaeljs.com/">Raphaël</a>—JavaScript Vector Library</p>
+        <script src="js/raphael.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/raphael.free_transform.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/graffle.js" type="text/javascript" charset="utf-8"></script>
+    </body>
+</html>

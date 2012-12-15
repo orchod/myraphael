@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Movable and Re-sizable Raphael JS Shape</title>
+</head>
+ 
+<body>
+ 
+    <div id="paper"></div>
+ 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://github.com/DmitryBaranovskiy/raphael/raw/master/raphael-min.js"></script>
+ 
+    <script>
+   
+    (function() {
+ 
+        var dragStart = function() {
+ 
+            // Save some starting values
+            this.ox = this.attr('x');
+            this.oy = this.attr('y');
+            this.ow = this.attr('width');
+            this.oh = this.attr('height');
+            
+            this.dragging = true;
+        };
+ 
+ 
+        var dragMove = function(dx, dy) {
+ 
+            // Inspect cursor to determine which resize/move process to use
+            switch (this.attr('cursor')) {
+ 
+                case 'nw-resize' :
+                    this.attr({
+                        x: this.ox + dx, 
+                        y: this.oy + dy, 
+                        width: this.ow - dx, 
+                        height: this.oh - dy
+                    });
+                    break;
+ 
+                case 'ne-resize' :
+                    this.attr({ 
+                        y: this.oy + dy , 
+                        width: this.ow + dx, 
+                        height: this.oh - dy
+                    });
+                    break;
+ 
+                case 'se-resize' :
+                    this.attr({
+                        width: this.ow + dx, 
+                        height: this.oh + dy
+                    });
+                    break;
+ 
+                case 'sw-resize' :
+                    this.attr({ 
+                        x: this.ox + dx, 
+                        width: this.ow - dx, 
+                        height: this.oh + dy
+                    });
+                    break;
+ 
+                default :
+                    this.attr({
+                        x: this.ox + dx, 
+                        y: this.oy + dy
+                    });
+                    break;
+ 
+            }
+        };
+ 
+        var dragEnd = function() {
+            this.dragging = false;
+        };
+ 
+        var changeCursor = function(e, mouseX, mouseY) {
+ 
+            // Don't change cursor during a drag operation
+            if (this.dragging === true) {
+                return;
+            }
+ 
+            // X,Y Coordinates relative to shape's orgin
+            var relativeX = mouseX - $('#paper').offset().left - this.attr('x');
+            var relativeY = mouseY - $('#paper').offset().top - this.attr('y');
+ 
+            var shapeWidth = this.attr('width');
+            var shapeHeight = this.attr('height');
+ 
+            var resizeBorder = 10;
+ 
+            // Change cursor
+            if (relativeX < resizeBorder && relativeY < resizeBorder) { 
+                this.attr('cursor', 'nw-resize');
+            } else if (relativeX > shapeWidth-resizeBorder && relativeY < resizeBorder) { 
+                this.attr('cursor', 'ne-resize');
+            } else if (relativeX > shapeWidth-resizeBorder && relativeY > shapeHeight-resizeBorder) { 
+                this.attr('cursor', 'se-resize');
+            } else if (relativeX < resizeBorder && relativeY > shapeHeight-resizeBorder) { 
+                this.attr('cursor', 'sw-resize');
+            } else { 
+                this.attr('cursor', 'move');
+            }
+        };
+   
+   
+   
+        // Create drawing area
+        var paper = Raphael("paper", 500, 500);
+ 
+        // Add a rectangle
+        var shapes = paper.add([{
+            'type' : 'rect',
+            'x' : 150,
+            'y' : 150,
+            'width' : 100,
+            'height' : 80,
+            'fill' : '#759dcd',
+            'stroke' : '#3b5068',
+            'stroke-width' : 10
+        }]);
+ 
+        // Attach "Mouse Over" handler to rectangle
+        shapes[0].mousemove(changeCursor);
+ 
+        // Attach "Drag" handlers to rectangle
+        shapes[0].drag(dragMove, dragStart, dragEnd);
+   
+    })();
+ 
+    </script>  
+ 
+</body>
+</html>
